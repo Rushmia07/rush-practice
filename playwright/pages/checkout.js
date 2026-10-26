@@ -10,7 +10,7 @@ constructor(page){
     this.cancelButton="//button[@id='cancel']"
     this.error="h3[data-test='error']"
     this.dismiss="//button[@aria-label='Dismiss error']"
-
+    this.finishButton="//button[@id='finish']"
 }
 
 async cancel(){
@@ -18,6 +18,9 @@ await this.page.click(this.cancelButton)
 }
 async checkout(){
 await this.page.click(this.checkoutButton)
+}
+async finish(){
+await this.page.click(this.finishButton)
 }
 async noinput(){
  await this.page.click(this.continue) 

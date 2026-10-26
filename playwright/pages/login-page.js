@@ -14,12 +14,10 @@ async ValidloginToApplication()
     await this.page.click(this.loginbutton)
 
 }
-async problemUserValidloginToApplication()
-{
+async problemUserValidLogin(){
     await this.page.fill(this.username,"problem_user")
     await this.page.fill(this.password,"secret_sauce")
     await this.page.click(this.loginbutton)
-    
 }
 async errorUserValidloginToApplication()
 {

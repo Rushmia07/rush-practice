@@ -3,8 +3,6 @@ const LoginPage = require('../playwright/pages/login-page');
 const CheckoutPage = require('../playwright/pages/checkout');
 const CartPage = require('../playwright/pages/cart');
 
-// Every test in this file needs the same starting point: logged in, one
-// item in the cart, and Checkout clicked so you land on checkout-step-one.
 test.beforeEach(async ({ page }) => {
     await page.goto('https://www.saucedemo.com/');
     const loginPage = new LoginPage(page);

@@ -19,9 +19,6 @@ test('TC-49 verify clicking Finish goes to the order complete page', async ({ pa
     await page.click("//button[@id='checkout']")
     const checkoutpage=new CheckoutPage(page);
     await checkoutpage.allinput()
-    // FIXED: was checking checkout-step-one.html. Filling all 3 fields correctly
-    //        moves you FORWARD to step two - step-one is only where you land
-    //        when validation fails and you're stuck on the same page.
     await expect(page).toHaveURL(/checkout-step-two.html/);
     await page.click("//button[@id='finish']")
     await expect(page).toHaveURL(/checkout-complete.html/)
@@ -92,8 +89,6 @@ test('TC-52 verify the cart badge is gone after completing an order', async ({ p
     await page.click("//button[@id='finish']")
     await expect(page).toHaveURL(/checkout-complete.html/)
 
-    // Same rule as TC-17, TC-27, TC-42: the badge is DELETED from the page
-    // once the cart is empty, not just emptied out.
     await expect(page.locator('.shopping_cart_badge')).toHaveCount(0);
 
 });

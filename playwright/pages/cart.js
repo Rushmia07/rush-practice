@@ -16,7 +16,9 @@ class CartPage {
         this.inventoryButton = '.btn_inventory';
         this.continueButton="//button[@id='continue-shopping']";
         this.checkoutButton="//button[@id='checkout']"
+        this.sort="select[aria-label='Sort products']"
     }
+
     getPrice(){
         return this.page.locator(this.productPrice)
     }
@@ -86,7 +88,13 @@ class CartPage {
         return this.page.locator(`[data-test="remove-${productSlug}"]`);
     }
 
+    getSort(){
+        return this.page.locator("select[aria-label='Sort products']")
+    }
+    async selectSort(productValue){
+    await this.getSort().selectOption(productValue)
 
+    }
 
     async addToCart(productSlug) {
         await this.page.click(`[data-test="add-to-cart-${productSlug}"]`);
