@@ -129,6 +129,7 @@ test('TC-32 verify the badge disappears after adding all 6 items and removing al
     await expect(page).toHaveURL(/inventory.html/);
     const cartpage=new CartPage(page);
     const addButtons = cartpage.getAddToCartButtons();
+    await expect(addButtons).toHaveCount(6);
     while (await addButtons.count() > 0) {
         await addButtons.first().click();
     }
@@ -157,6 +158,7 @@ test('TC-42 verify all 6 products can be added to cart in a while+first loop', a
     const cartpage = new CartPage(page);
 
     const addButtons = cartpage.getAddToCartButtons();
+    await expect(addButtons).toHaveCount(6);
     while (await addButtons.count() > 0) {
         await addButtons.first().click();
     }

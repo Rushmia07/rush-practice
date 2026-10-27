@@ -246,8 +246,7 @@ test('TC-19 verify every price matches the exact format $X.XX', async ({ page })
     await expect(page).toHaveURL(/inventory.html/);
     const inventoryPage=new InventoryPage(page);
     const price = await inventoryPage.getProductPrices().allTextContents();
-    for(const pri of price){
-        const text = await pri.textContent();
+    for(const text of price){
         expect(text).toMatch(/^\$\d+\.\d{2}$/)
     }
 
@@ -278,7 +277,7 @@ test('TC-21 verify no two product descriptions are identical', async ({ page }) 
    await loginpage.ValidloginToApplication();
    await expect(page).toHaveURL(/inventory.html/);
    const inventoryPage=new InventoryPage(page);
-   const des = await inventoryPage.getAddToCartButtons().allTextContents();
+   const des = await inventoryPage.getProductDescriptions().allTextContents();
    const uniquedes=new Set(des);
    expect(uniquedes.size).toBe(des.length);
 
@@ -334,11 +333,13 @@ test('TC-25 verify clicking one Add to cart button does not change the other 5',
     await loginpage.ValidloginToApplication();
     await expect(page).toHaveURL(/inventory.html/);
     const inventory_page=new InventoryPage(page);
-    const before = await inventory_page.getAddToCartButtons().allTextContents();
+    const buttons = inventory_page.getInventoryButtons();
+    const before = await buttons.allTextContents();
 
     await buttons.nth(0).click();
+    await expect(buttons.nth(0)).toHaveText('Remove');
 
-    const after = await inventory_page.getAddToCartButtons().allTextContents();
+    const after = await buttons.allTextContents();
 
     expect(after[0]).toBe('Remove');
    for (let i = 1; i < before.length; i++) {
